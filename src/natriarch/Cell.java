@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+//Cell class represents the individual square on the game board.
+//They can be alive or dead
 public class Cell extends JComponent  {
 	private int x;
 	private int y;
 	private boolean currentState;
-	private boolean futureState;
+	private boolean futureState; //This variable stores the future state of this cell, determined by adjacent cells.
 	private int age;
 	
 	public Cell(int w, int h, boolean b){

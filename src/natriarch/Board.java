@@ -3,21 +3,24 @@ package natriarch;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+//The game board. A grid of cells that are either alive or dead.
 public class Board{
 
 	private int height;
 	private int width;
 	private Cell[][] cells;	
 	private boolean ready;
-	private int simSpeed;
+	private int simSpeed; //the rate at which the board advances generations
 
+	//Constructor allows for different board sizes	
 	public Board(int x, int y){
-		simSpeed = 250; 
+		simSpeed = 250;  
 		width = x;
 		height = y;
 		cells = new Cell[width][height];
 		ready = false;
 		
+		//must first populate board completely with 'dead' cells
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				cells[i][j] = new Cell(i, j, false);
@@ -53,7 +56,8 @@ public class Board{
 		return simSpeed; 
 	}
 	
-	
+	//calculate the future board state by assessing dead and alive cells and their neighbors.
+	//at the end, commit to the new board state.
 	public void advanceGen(){
 		//temp integers used to store for loop positions 
 		//due to them being modified for edge conditions
@@ -68,7 +72,8 @@ public class Board{
 					for (int l = j-1; l <= j+1; l++){
 						tempY = l;
 						//if the cell in question is off the board, we replace it with an opposite cell on the board
-						//allows for wrapping of cells
+						//allows for wrapping of cells. This is done by altering the value of K and L. 
+						//This value must be reset after placing the new cell to resume the loop from the correct location
 						if (k < 0) {
 							k = width-1;
 						}
@@ -112,7 +117,7 @@ public class Board{
 			}
 		}
 
-		commitToFuture();
+		commitToFuture(); //Switch all cells current values to their future values. 
 	}
 	
 	public void commitToFuture(){
@@ -123,6 +128,7 @@ public class Board{
 		}
 	}
 	
+	//Clear the board
 	public void reset(){
 		ready = false;
 		for (int i = 0; i < width; i++) {
@@ -143,10 +149,11 @@ public class Board{
 			}
 		}
 	}
-		
+	
 	public static void main(String args[]) throws InterruptedException{
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-		catch (ClassNotFoundException e){}
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e){}
 		catch (InstantiationException e){}
 		catch (IllegalAccessException e){}
 		catch (UnsupportedLookAndFeelException e){}

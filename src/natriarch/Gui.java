@@ -63,8 +63,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 	
 	private Color cellColor;
 	
-
-	
+	//Constructor initializes controls and GUI
 	public Gui(Board b) {
 		gameBoard = b; 
 		initControls();
@@ -73,6 +72,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 	}
 	
 	public void initControls() {
+		//set up input and action maps
 		im = this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
 		am = this.getActionMap();
 		
@@ -200,6 +200,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		optionFrame.pack();
 	}
 	
+	//Set up mouse press bindings
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (!gameBoard.isReady()) {
@@ -217,6 +218,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		}
 	}
 	
+	//Mouse drag bindings
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -236,6 +238,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		}
 	}
 	
+	//Actions that will be assigned to our buttons
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("pause simulation")) {
@@ -273,6 +276,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		}
 	}
 	
+	//Bind slider to game speed
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		// TODO Auto-generated method stub
@@ -281,6 +285,8 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		
 	}
 	
+	
+	//Bindings for keyboard shortcuts
 	public class KeyAction extends AbstractAction {
 		private String command;
 		public KeyAction(String cmd) {
@@ -310,6 +316,7 @@ public class Gui extends JPanel implements MouseInputListener, ActionListener, C
 		}
 	}
 	
+	//This method paints the board according to the current layout of cells
 	public void paintComponent(Graphics g){
 		Graphics2D g2d = (Graphics2D)g;
 		super.paintComponent(g2d);
